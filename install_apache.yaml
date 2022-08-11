@@ -5,6 +5,16 @@
   become: true
   tasks:
 
+  - name: Update packages
+    apt:
+      update_cache: true
+
   - name: Install apache2 package
     apt:
       name: apache2
+      state: latest
+
+  - name: Install pip modifiction
+    apt:
+      name: libapache2-mod-php
+      state: latest
