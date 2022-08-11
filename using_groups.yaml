@@ -1,0 +1,52 @@
+---
+
+- hosts: all
+  user: ubuntu
+  become: true
+  # can use *pre_tasks* instead of *tasks*, wich will ensure that tasks are executed before other
+  # (although plays are executed in oreder)
+  tasks:
+
+  - name: install updates (CentOS)
+    dnf:
+      update_only: true
+      update_cache: true
+    when: ansible_distribution == "CentOS"
+
+  - name: install updates (Ubuntu)
+    apt:
+      upgrade: dist
+      update_cache: true
+    when: ansible_distribution == "Ubuntu"
+
+
+- hosts: group_1
+  user: ubuntu
+  become: true
+  tasks:
+
+  - name: Install apache and pip packages on Ubuntu
+    apt:
+      name: 
+      - apache2
+      - libapache2-mod-php
+      state: latest
+    when: ansible_distribution == "Ubuntu"
+
+  - name: Install apache and pip packages on CentOS
+    apt:
+      name: 
+      - httpd
+      - php
+      state: latest
+    when: ansible_distribution == "CentOS"
+
+
+- hosts: group_2
+  user: ubuntu
+  become: true
+  tasks:
+
+  - name: Just ping ubuntu servers
+    ping:
+    when: ansible_distribution == "Ubuntu"
