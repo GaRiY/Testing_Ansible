@@ -5,16 +5,11 @@
   become: true
   tasks:
 
-  - name: Update packages
-    apt:
+  - name: Update and install apache and pip packages
+    # Package is a module, that determines what package manager the system uses, and runs it.
+    package:
+      name: 
+      - "{{ apache_package }}"
+      - "{{ php_package }}"
+      state: latest
       update_cache: true
-
-  - name: Install apache2 package
-    apt:
-      name: apache2
-      state: latest
-
-  - name: Install pip modifiction
-    apt:
-      name: libapache2-mod-php
-      state: latest

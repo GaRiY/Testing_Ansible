@@ -9,9 +9,3 @@
     apt:
       name: apache2
       state: absent
-
-  # The block above already removes this package, so the block below will do nothing.
-  - name: Remove pip package
-    apt:
-      name: libapache2-mod-pip
-      state: absent
