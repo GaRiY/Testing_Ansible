@@ -1,0 +1,11 @@
+---
+
+- hosts: all
+  user: ubuntu
+  become: true
+  tasks:
+
+  - name: Install apache2 package
+    apt:
+      name: apache2
+      state: absent
